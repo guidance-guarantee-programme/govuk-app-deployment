@@ -17,6 +17,16 @@ namespace :deploy do
   task :start do; end
   task :stop do; end
   task :restart, :roles => :app, :except => { :no_release => true } do
+    if fetch(:hard_restart, false)
+      hard_restart
+    else
+      soft_restart
+    end
+  end
+
+  # soft-restart is a graceful restart of the app. It is preferable to a
+  # hard-restart
+  task :soft_restart, :roles => :app, :except => { :no_release => true } do
     # The deploy user always has permission to run initctl commands.
     run "sudo initctl start #{application} 2>/dev/null || sudo initctl reload #{application}"
   end
