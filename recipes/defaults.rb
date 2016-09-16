@@ -29,6 +29,12 @@ namespace :deploy do
     restart
   end
 
+  desc "Deploy with migrations, similar to default but migrations are not app dependent"
+  task :with_migrations do
+    set :run_migrations_by_default, true
+    default
+  end
+
   desc "Deploy without running migrations.  Use with caution."
   task :without_migrations do
     update
