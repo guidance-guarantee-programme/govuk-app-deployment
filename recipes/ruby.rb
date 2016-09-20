@@ -92,6 +92,23 @@ namespace :deploy do
   end
 end
 
+namespace :application do
+  # Alias to migrate, used to give the task a less ambiguous name
+  task :migrate_without_deploy do
+    deploy.migrate
+  end
+
+  # Alias to hard_restart, used to give the task a less ambiguous name
+  task :hard_restart_without_deploy do
+    deploy.hard_restart
+  end
+
+  # Alias to soft_restart, used to give the task a less ambiguous name
+  task :soft_restart_without_deploy do
+    deploy.soft_restart
+  end
+end
+
 after "deploy:update_code", "deploy:notify_ruby_version"
 after "deploy:finalize_update", "deploy:upload_initializers"
 after "deploy:upload_config", "deploy:upload_organisation_config"
