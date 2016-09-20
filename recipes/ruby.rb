@@ -47,6 +47,20 @@ namespace :deploy do
     hard_restart
   end
 
+  # Runs a deploy with migrations and then hard restarts the app.
+  # Useful for when the ruby version has changed
+  task :with_migrations_and_hard_restart do
+    set hard_restart, true
+    with_migrations
+  end
+
+  # Runs a deploy without migrations and then hard restarts the app.
+  # Useful for when the ruby version has changed
+  task :without_migrations_and_hard_restart do
+    set hard_restart, true
+    without_migrations
+  end
+
   task :notify_ruby_version do
     run "cd #{latest_release} && ruby -v"
   end
